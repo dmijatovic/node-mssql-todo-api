@@ -41,7 +41,14 @@ Compared to similair api with Postgres database the performance of MSSQL api sol
 This api load test shows about 50k requests are handled within 30 seconds test. Similair api using Postgres handles about 100k in 30 seconds.
 
 ```bash
+# nodejs-polka-mssql-todo-api (thisone)
 48k requests in 30.06s, 27.7 MB read
+Saved to lowdb json file
+IdNotRetuned:  0
+
+# nodejs-polka-postgres-todo-api
+# https://github.com/dmijatovic/todo-api-bench/tree/master/todo-polka-api
+101k requests in 30.05s, 27 MB read
 Saved to lowdb json file
 IdNotRetuned:  0
 ```
