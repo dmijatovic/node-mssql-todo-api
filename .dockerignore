@@ -1,0 +1,6 @@
+dist
+mssql
+node_modules
+test
+.gitgnore
+.vscode

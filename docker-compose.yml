@@ -1,0 +1,49 @@
+version: '3'
+services:
+  mssql:
+    container_name: mssql
+    # use latest official postgres version
+    image: mcr.microsoft.com/mssql/server:2017-latest
+    command: /bin/bash /home/mssql/entrypoint.sh
+    env_file:
+      # configure postgres
+      - ./mssql/database.env
+    expose:
+      - "1433"
+    volumes:
+      # persist data even if container shuts down
+      - todo_data:/var/opt/mssql
+      # run init sql script to create database and tables
+      - ./mssql/entrypoint.sh:/home/mssql/entrypoint.sh
+      - ./mssql/init.sh:/home/mssql/init.sh
+      - ./mssql/init.sql:/home/mssql/init.sql
+    networks:
+      - net
+
+  todo-api:
+    container_name: todo-api
+    build: .
+    image: dv4all/polka-mssql-api:0.0.3
+    environment:
+      API_PORT: 8080
+      API_NAME: polka-mssql-api
+      API_DELAY: 20
+      MSSQL_HOST: mssql
+      MSSQL_PORT: 1433
+      MSSQL_USER: SA
+      MSSQL_PASS: "Pa55word!"
+      MSSQL_DB: todo_db
+      MSSQL_POOL_SIZE: 30
+    ports:
+      - "8080:8080"
+    networks:
+      - net
+    depends_on:
+      - mssql
+
+networks:
+  net:
+
+# named volumes can be managed easier using docker-compose
+volumes:
+  todo_data:
