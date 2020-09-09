@@ -48,7 +48,8 @@ IdNotRetuned:  0
 
 # nodejs-polka-postgres-todo-api
 # https://github.com/dmijatovic/todo-api-bench/tree/master/todo-polka-api
-101k requests in 30.05s, 27 MB read
+104k requests in 30.04s, 59.8 MB read
+IdNotRetuned tot: 0, lists: 0, items:0
+Created tot: 29839, lists: 14921, items: 14918
 Saved to lowdb json file
-IdNotRetuned:  0
 ```
