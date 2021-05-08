@@ -1,0 +1,7 @@
+{
+  "swagger":"3.0",
+  "info":{
+    "version":"1.0.0",
+    "title":"test title"
+  }
+}

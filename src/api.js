@@ -2,6 +2,9 @@
 const polka = require('polka')
 const {json} = require('body-parser')
 
+const swagger = require('swagger-ui-express')
+const swaggerJson = require("./swagger/swagger.json")
+
 const getEnv = require('./utils/getEnv')
 const resp = require("./utils/resp")
 // const config = require("./api.config")
@@ -15,6 +18,7 @@ const API_NAME = getEnv('API_NAME', 'polka-mssql')
 setApiName(API_NAME)
 
 const api = polka()
+  .use("/swagger",swagger.serve,swagger.setup(swaggerJson))
   .use(json())
   .use(loggerMiddleware)
 
@@ -22,6 +26,8 @@ const api = polka()
 api.get("/",(req,res)=>{
   res.end(resp.respOK(res,{response:"It works"}))
 })
+
+// api.get("/swagger",swagger.setup(swaggerJson))
 
 
 // TODO LIST
@@ -35,6 +41,9 @@ api.get("/todolist/:lid/items", todo_item.getTodoItems)
 api.post("/todo", todo_item.addTodoItem)
 api.put("/todo", todo_item.updateTodoItem)
 api.delete("/todo/:id", todo_item.deleteTodoItem)
+
+// SWAGGER
+
 
 module.exports={
   api,
